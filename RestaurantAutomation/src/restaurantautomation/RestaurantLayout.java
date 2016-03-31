@@ -6,6 +6,7 @@
 package restaurantautomation;
 
 import java.awt.*;
+import java.util.ArrayList;
 import javax.swing.*;
 
 /**
@@ -20,6 +21,9 @@ public class RestaurantLayout extends JFrame {
     public RestaurantLayout() {
         initComponents();
     }
+    
+    static ArrayList <Table> tables = new ArrayList <Table> ();
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -47,21 +51,33 @@ public class RestaurantLayout extends JFrame {
         table_7_button = new javax.swing.JToggleButton();
         table_8_panel = new javax.swing.JPanel();
         table_8_button = new javax.swing.JToggleButton();
+        ctrlPanel = new javax.swing.JPanel();
+        ctrlGuestLabel = new javax.swing.JLabel();
+        remGuestButton = new javax.swing.JButton();
+        addGuestButton = new javax.swing.JButton();
+        ctrlSep1 = new javax.swing.JSeparator();
+        ctrlTableLabel = new javax.swing.JLabel();
         detailPanel = new javax.swing.JPanel();
         tableStatusTabPanel = new javax.swing.JTabbedPane();
         statusPanel = new javax.swing.JPanel();
         setFreeButton = new javax.swing.JButton();
         setDirtyButton = new javax.swing.JButton();
         setUsedButton = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
+        jSeparator1 = new javax.swing.JSeparator();
+        statusTableLabel = new javax.swing.JLabel();
+        maxSeatingLabel = new javax.swing.JLabel();
+        maxSeatingAmt = new javax.swing.JLabel();
+        curSeatingLabel = new javax.swing.JLabel();
+        curSeatingAmt = new javax.swing.JLabel();
+        orderPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Table Availability");
         setBackground(new java.awt.Color(255, 255, 255));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setLocationByPlatform(true);
-        setMaximumSize(new java.awt.Dimension(1200, 800));
-        setMinimumSize(new java.awt.Dimension(1200, 800));
+        setMaximumSize(new java.awt.Dimension(1200, 700));
+        setMinimumSize(new java.awt.Dimension(1200, 700));
         setResizable(false);
 
         tablesPanel.setBackground(new java.awt.Color(250, 250, 250));
@@ -284,28 +300,94 @@ public class RestaurantLayout extends JFrame {
                 .addContainerGap())
         );
 
+        ctrlGuestLabel.setFont(new java.awt.Font("Segoe UI Light", 0, 12)); // NOI18N
+        ctrlGuestLabel.setText("Guests");
+
+        remGuestButton.setFont(new java.awt.Font("Segoe UI Light", 0, 36)); // NOI18N
+        remGuestButton.setText("-");
+        remGuestButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                remGuestButtonActionPerformed(evt);
+            }
+        });
+
+        addGuestButton.setFont(new java.awt.Font("Segoe WP Light", 0, 36)); // NOI18N
+        addGuestButton.setText("+");
+        addGuestButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addGuestButtonActionPerformed(evt);
+            }
+        });
+
+        ctrlSep1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        javax.swing.GroupLayout ctrlPanelLayout = new javax.swing.GroupLayout(ctrlPanel);
+        ctrlPanel.setLayout(ctrlPanelLayout);
+        ctrlPanelLayout.setHorizontalGroup(
+            ctrlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ctrlPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(ctrlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ctrlGuestLabel)
+                    .addGroup(ctrlPanelLayout.createSequentialGroup()
+                        .addComponent(remGuestButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(addGuestButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ctrlSep1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        ctrlPanelLayout.setVerticalGroup(
+            ctrlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ctrlPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(ctrlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(ctrlSep1)
+                    .addGroup(ctrlPanelLayout.createSequentialGroup()
+                        .addComponent(ctrlGuestLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(ctrlPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(addGuestButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(remGuestButton, javax.swing.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE))))
+                .addContainerGap())
+        );
+
+        ctrlTableLabel.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
+        ctrlTableLabel.setText("No Table");
+
         javax.swing.GroupLayout tablesPanelLayout = new javax.swing.GroupLayout(tablesPanel);
         tablesPanel.setLayout(tablesPanelLayout);
         tablesPanelLayout.setHorizontalGroup(
             tablesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tablesPanelLayout.createSequentialGroup()
-                .addGap(50, 50, 50)
                 .addGroup(tablesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(table_1_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(table_5_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(tablesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(table_2_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(table_6_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(tablesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(table_3_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(table_7_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(22, 22, 22)
-                .addGroup(tablesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(table_4_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(table_8_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(50, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, tablesPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(ctrlPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(tablesPanelLayout.createSequentialGroup()
+                        .addGroup(tablesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(tablesPanelLayout.createSequentialGroup()
+                                .addGap(50, 50, 50)
+                                .addGroup(tablesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(table_1_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(table_5_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(tablesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(table_2_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(table_6_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addGroup(tablesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(table_3_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(table_7_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(22, 22, 22)
+                                .addGroup(tablesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(table_4_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(table_8_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(tablesPanelLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(ctrlTableLabel)))
+                        .addGap(0, 40, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         tablesPanelLayout.setVerticalGroup(
             tablesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -322,7 +404,11 @@ public class RestaurantLayout extends JFrame {
                     .addComponent(table_6_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(table_5_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(table_7_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(ctrlTableLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ctrlPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         detailPanel.setBackground(new java.awt.Color(255, 255, 255));
@@ -360,6 +446,23 @@ public class RestaurantLayout extends JFrame {
             }
         });
 
+        statusTableLabel.setFont(new java.awt.Font("Segoe UI Light", 0, 18)); // NOI18N
+        statusTableLabel.setText("No Table");
+
+        maxSeatingLabel.setFont(new java.awt.Font("Segoe WP Light", 0, 18)); // NOI18N
+        maxSeatingLabel.setText("Max Seating");
+
+        maxSeatingAmt.setFont(new java.awt.Font("Segoe WP Light", 0, 24)); // NOI18N
+        maxSeatingAmt.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        maxSeatingAmt.setText("0");
+
+        curSeatingLabel.setFont(new java.awt.Font("Segoe WP Light", 0, 18)); // NOI18N
+        curSeatingLabel.setText("Currently Seating");
+
+        curSeatingAmt.setFont(new java.awt.Font("Segoe WP Light", 0, 24)); // NOI18N
+        curSeatingAmt.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        curSeatingAmt.setText("0");
+
         javax.swing.GroupLayout statusPanelLayout = new javax.swing.GroupLayout(statusPanel);
         statusPanel.setLayout(statusPanelLayout);
         statusPanelLayout.setHorizontalGroup(
@@ -369,7 +472,19 @@ public class RestaurantLayout extends JFrame {
                 .addGroup(statusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(setFreeButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(setDirtyButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(setUsedButton, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE))
+                    .addComponent(setUsedButton, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
+                    .addComponent(jSeparator1)
+                    .addGroup(statusPanelLayout.createSequentialGroup()
+                        .addComponent(maxSeatingLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(maxSeatingAmt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(statusPanelLayout.createSequentialGroup()
+                        .addComponent(statusTableLabel)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(statusPanelLayout.createSequentialGroup()
+                        .addComponent(curSeatingLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(curSeatingAmt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         statusPanelLayout.setVerticalGroup(
@@ -381,23 +496,35 @@ public class RestaurantLayout extends JFrame {
                 .addComponent(setDirtyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(setUsedButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(442, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(statusTableLabel)
+                .addGap(18, 18, 18)
+                .addGroup(statusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(maxSeatingAmt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(maxSeatingLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(statusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(curSeatingLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                    .addComponent(curSeatingAmt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(307, 307, 307))
         );
 
         tableStatusTabPanel.addTab("Status", statusPanel);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout orderPanelLayout = new javax.swing.GroupLayout(orderPanel);
+        orderPanel.setLayout(orderPanelLayout);
+        orderPanelLayout.setHorizontalGroup(
+            orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 313, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
+        orderPanelLayout.setVerticalGroup(
+            orderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 602, Short.MAX_VALUE)
         );
 
-        tableStatusTabPanel.addTab("Orders", jPanel1);
+        tableStatusTabPanel.addTab("Orders", orderPanel);
 
         javax.swing.GroupLayout detailPanelLayout = new javax.swing.GroupLayout(detailPanel);
         detailPanel.setLayout(detailPanelLayout);
@@ -475,48 +602,81 @@ public class RestaurantLayout extends JFrame {
         // TODO add your handling code here:
 
         selectTable(1);
+        ctrlTableLabel.setText("Table 1");
+        statusTableLabel.setText("Table 1");
+        maxSeatingAmt.setText(Integer.toString(tables.get(0).getMaxGuests()));
+        curSeatingAmt.setText(Integer.toString(tables.get(0).getCurGuests()));
+        
     }//GEN-LAST:event_table_1_buttonActionPerformed
 
     private void table_2_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_table_2_buttonActionPerformed
         // TODO add your handling code here:
 
         selectTable(2);
+        ctrlTableLabel.setText("Table 2");
+        statusTableLabel.setText("Table 2");
+        maxSeatingAmt.setText(Integer.toString(tables.get(1).getMaxGuests()));
+        curSeatingAmt.setText(Integer.toString(tables.get(1).getCurGuests()));
     }//GEN-LAST:event_table_2_buttonActionPerformed
 
     private void table_3_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_table_3_buttonActionPerformed
         // TODO add your handling code here:
 
         selectTable(3);
+        ctrlTableLabel.setText("Table 3");
+        statusTableLabel.setText("Table 3");
+        maxSeatingAmt.setText(Integer.toString(tables.get(2).getMaxGuests()));
+        curSeatingAmt.setText(Integer.toString(tables.get(2).getCurGuests()));
     }//GEN-LAST:event_table_3_buttonActionPerformed
 
     private void table_4_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_table_4_buttonActionPerformed
         // TODO add your handling code here:
 
         selectTable(4);
+        ctrlTableLabel.setText("Table 4");
+        statusTableLabel.setText("Table 4");
+        maxSeatingAmt.setText(Integer.toString(tables.get(3).getMaxGuests()));
+        curSeatingAmt.setText(Integer.toString(tables.get(3).getCurGuests()));
     }//GEN-LAST:event_table_4_buttonActionPerformed
 
     private void table_5_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_table_5_buttonActionPerformed
         // TODO add your handling code here:
 
         selectTable(5);
+        ctrlTableLabel.setText("Table 5");
+        statusTableLabel.setText("Table 5");
+        maxSeatingAmt.setText(Integer.toString(tables.get(4).getMaxGuests()));
+        curSeatingAmt.setText(Integer.toString(tables.get(4).getCurGuests()));
     }//GEN-LAST:event_table_5_buttonActionPerformed
 
     private void table_6_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_table_6_buttonActionPerformed
         // TODO add your handling code here:
 
         selectTable(6);
+        ctrlTableLabel.setText("Table 6");
+        statusTableLabel.setText("Table 6");
+        maxSeatingAmt.setText(Integer.toString(tables.get(5).getMaxGuests()));
+        curSeatingAmt.setText(Integer.toString(tables.get(5).getCurGuests()));
     }//GEN-LAST:event_table_6_buttonActionPerformed
 
     private void table_7_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_table_7_buttonActionPerformed
         // TODO add your handling code here:
 
         selectTable(7);
+        ctrlTableLabel.setText("Table 7");
+        statusTableLabel.setText("Table 7");
+        maxSeatingAmt.setText(Integer.toString(tables.get(6).getMaxGuests()));
+        curSeatingAmt.setText(Integer.toString(tables.get(6).getCurGuests()));
     }//GEN-LAST:event_table_7_buttonActionPerformed
 
     private void table_8_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_table_8_buttonActionPerformed
         // TODO add your handling code here:
 
         selectTable(8);
+        ctrlTableLabel.setText("Table 8");
+        statusTableLabel.setText("Table 8");
+        maxSeatingAmt.setText(Integer.toString(tables.get(7).getMaxGuests()));
+        curSeatingAmt.setText(Integer.toString(tables.get(7).getCurGuests()));
     }//GEN-LAST:event_table_8_buttonActionPerformed
 
     private void setDirtyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_setDirtyButtonActionPerformed
@@ -525,27 +685,44 @@ public class RestaurantLayout extends JFrame {
         if (table_1_button.isSelected()) {
             table_1_button.setBackground(new java.awt.Color(255, 204, 102));
             table_1_panel.setBackground(new java.awt.Color(255, 204, 102));
+            tables.get(0).setAvailability(1);
+            tables.get(0).setCurGuests(0);
+            curSeatingAmt.setText(Integer.toString(tables.get(0).getCurGuests()));
         } else if (table_2_button.isSelected()) {
             table_2_button.setBackground(new java.awt.Color(255, 204, 102));
             table_2_panel.setBackground(new java.awt.Color(255, 204, 102));
+            tables.get(0).setCurGuests(0);
+            curSeatingAmt.setText(Integer.toString(tables.get(0).getCurGuests()));
         } else if (table_3_button.isSelected()) {
             table_3_button.setBackground(new java.awt.Color(255, 204, 102));
             table_3_panel.setBackground(new java.awt.Color(255, 204, 102));
+            tables.get(0).setCurGuests(0);
+            curSeatingAmt.setText(Integer.toString(tables.get(0).getCurGuests()));
         } else if (table_4_button.isSelected()) {
             table_4_button.setBackground(new java.awt.Color(255, 204, 102));
             table_4_panel.setBackground(new java.awt.Color(255, 204, 102));
+            tables.get(0).setCurGuests(0);
+            curSeatingAmt.setText(Integer.toString(tables.get(0).getCurGuests()));
         } else if (table_5_button.isSelected()) {
             table_5_button.setBackground(new java.awt.Color(255, 204, 102));
             table_5_panel.setBackground(new java.awt.Color(255, 204, 102));
+            tables.get(0).setCurGuests(0);
+            curSeatingAmt.setText(Integer.toString(tables.get(0).getCurGuests()));
         } else if (table_6_button.isSelected()) {
             table_6_button.setBackground(new java.awt.Color(255, 204, 102));
             table_6_panel.setBackground(new java.awt.Color(255, 204, 102));
+            tables.get(0).setCurGuests(0);
+            curSeatingAmt.setText(Integer.toString(tables.get(0).getCurGuests()));
         } else if (table_7_button.isSelected()) {
             table_7_button.setBackground(new java.awt.Color(255, 204, 102));
             table_7_panel.setBackground(new java.awt.Color(255, 204, 102));
+            tables.get(0).setCurGuests(0);
+            curSeatingAmt.setText(Integer.toString(tables.get(0).getCurGuests()));
         } else if (table_8_button.isSelected()) {
             table_8_button.setBackground(new java.awt.Color(255, 204, 102));
             table_8_panel.setBackground(new java.awt.Color(255, 204, 102));
+            tables.get(0).setCurGuests(0);
+            curSeatingAmt.setText(Integer.toString(tables.get(0).getCurGuests()));
         }
     }//GEN-LAST:event_setDirtyButtonActionPerformed
 
@@ -585,29 +762,229 @@ public class RestaurantLayout extends JFrame {
         if (table_1_button.isSelected()) {
             table_1_button.setBackground(new java.awt.Color(153, 255, 153));
             table_1_panel.setBackground(new java.awt.Color(153, 255, 153));
+            tables.get(0).setAvailability(0);
+            tables.get(0).setCurGuests(0);
+            curSeatingAmt.setText(Integer.toString(tables.get(0).getCurGuests()));
         } else if (table_2_button.isSelected()) {
             table_2_button.setBackground(new java.awt.Color(153, 255, 153));
             table_2_panel.setBackground(new java.awt.Color(153, 255, 153));
+            tables.get(1).setCurGuests(0);
+            curSeatingAmt.setText(Integer.toString(tables.get(1).getCurGuests()));
         } else if (table_3_button.isSelected()) {
             table_3_button.setBackground(new java.awt.Color(153, 255, 153));
             table_3_panel.setBackground(new java.awt.Color(153, 255, 153));
+            tables.get(2).setCurGuests(0);
+            curSeatingAmt.setText(Integer.toString(tables.get(2).getCurGuests()));
         } else if (table_4_button.isSelected()) {
             table_4_button.setBackground(new java.awt.Color(153, 255, 153));
             table_4_panel.setBackground(new java.awt.Color(153, 255, 153));
+            tables.get(3).setCurGuests(0);
+            curSeatingAmt.setText(Integer.toString(tables.get(3).getCurGuests()));
         } else if (table_5_button.isSelected()) {
             table_5_button.setBackground(new java.awt.Color(153, 255, 153));
             table_5_panel.setBackground(new java.awt.Color(153, 255, 153));
+            tables.get(4).setCurGuests(0);
+            curSeatingAmt.setText(Integer.toString(tables.get(4).getCurGuests()));
         } else if (table_6_button.isSelected()) {
             table_6_button.setBackground(new java.awt.Color(153, 255, 153));
             table_6_panel.setBackground(new java.awt.Color(153, 255, 153));
+            tables.get(5).setCurGuests(0);
+            curSeatingAmt.setText(Integer.toString(tables.get(5).getCurGuests()));
         } else if (table_7_button.isSelected()) {
             table_7_button.setBackground(new java.awt.Color(153, 255, 153));
             table_7_panel.setBackground(new java.awt.Color(153, 255, 153));
+            tables.get(6).setCurGuests(0);
+            curSeatingAmt.setText(Integer.toString(tables.get(6).getCurGuests()));
         } else if (table_8_button.isSelected()) {
             table_8_button.setBackground(new java.awt.Color(153, 255, 153));
             table_8_panel.setBackground(new java.awt.Color(153, 255, 153));
+            tables.get(7).setCurGuests(0);
+            curSeatingAmt.setText(Integer.toString(tables.get(7).getCurGuests()));
         }
     }//GEN-LAST:event_setFreeButtonActionPerformed
+
+    private void remGuestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_remGuestButtonActionPerformed
+        // TODO add your handling code here:
+        
+        if (table_1_button.isSelected()) {
+            //table_1_button.setBackground(new java.awt.Color(153, 255, 153));
+            //table_1_panel.setBackground(new java.awt.Color(153, 255, 153));
+            tables.get(0).setAvailability(0);
+            if (tables.get(0).getCurGuests() > 0) {
+                tables.get(0).removeGuest();
+            }
+            curSeatingAmt.setText(Integer.toString(tables.get(0).getCurGuests()));
+            if (tables.get(0).getCurGuests() > 0) {
+                table_1_button.setBackground(new java.awt.Color(255,153,153));
+                table_1_panel.setBackground(new java.awt.Color(255,153,153));
+            } else if (tables.get(0).getCurGuests() == 0) {
+                table_1_button.setBackground(new java.awt.Color(255,204,102));
+                table_1_panel.setBackground(new java.awt.Color(255,204,102));
+            }
+        } else if (table_2_button.isSelected()) {
+            table_2_button.setBackground(new java.awt.Color(153, 255, 153));
+            table_2_panel.setBackground(new java.awt.Color(153, 255, 153));
+            if (tables.get(1).getCurGuests() > 0) {
+                tables.get(1).removeGuest();
+            }
+            curSeatingAmt.setText(Integer.toString(tables.get(1).getCurGuests()));
+            if (tables.get(1).getCurGuests() > 0) {
+                table_2_button.setBackground(new java.awt.Color(255,153,153));
+                table_2_panel.setBackground(new java.awt.Color(255,153,153));
+            } else if (tables.get(1).getCurGuests() == 0) {
+                table_2_button.setBackground(new java.awt.Color(255,204,102));
+                table_2_panel.setBackground(new java.awt.Color(255,204,102));
+            }
+        } else if (table_3_button.isSelected()) {
+            table_3_button.setBackground(new java.awt.Color(153, 255, 153));
+            table_3_panel.setBackground(new java.awt.Color(153, 255, 153));
+            if (tables.get(2).getCurGuests() > 0) {
+                tables.get(2).removeGuest();
+            }
+            curSeatingAmt.setText(Integer.toString(tables.get(2).getCurGuests()));
+            if (tables.get(3).getCurGuests() > 0) {
+                table_3_button.setBackground(new java.awt.Color(255,153,153));
+                table_3_panel.setBackground(new java.awt.Color(255,153,153));
+            } else if (tables.get(3).getCurGuests() == 0) {
+                table_3_button.setBackground(new java.awt.Color(255,204,102));
+                table_3_panel.setBackground(new java.awt.Color(255,204,102));
+            }
+        } else if (table_4_button.isSelected()) {
+            table_4_button.setBackground(new java.awt.Color(153, 255, 153));
+            table_4_panel.setBackground(new java.awt.Color(153, 255, 153));
+            if (tables.get(3).getCurGuests() > 0) {
+                tables.get(3).removeGuest();
+            }
+            curSeatingAmt.setText(Integer.toString(tables.get(3).getCurGuests()));
+            if (tables.get(3).getCurGuests() > 0) {
+                table_4_button.setBackground(new java.awt.Color(255,153,153));
+                table_4_panel.setBackground(new java.awt.Color(255,153,153));
+            } else if (tables.get(3).getCurGuests() == 0) {
+                table_4_button.setBackground(new java.awt.Color(255,204,102));
+                table_4_panel.setBackground(new java.awt.Color(255,204,102));
+            }
+        } else if (table_5_button.isSelected()) {
+            table_5_button.setBackground(new java.awt.Color(153, 255, 153));
+            table_5_panel.setBackground(new java.awt.Color(153, 255, 153));
+            if (tables.get(4).getCurGuests() > 0) {
+                tables.get(4).removeGuest();
+            }
+            curSeatingAmt.setText(Integer.toString(tables.get(4).getCurGuests()));
+            if (tables.get(4).getCurGuests() > 0) {
+                table_5_button.setBackground(new java.awt.Color(255,153,153));
+                table_5_panel.setBackground(new java.awt.Color(255,153,153));
+            } else if (tables.get(4).getCurGuests() == 0) {
+                table_5_button.setBackground(new java.awt.Color(255,204,102));
+                table_5_panel.setBackground(new java.awt.Color(255,204,102));
+            }
+        } else if (table_6_button.isSelected()) {
+            table_6_button.setBackground(new java.awt.Color(153, 255, 153));
+            table_6_panel.setBackground(new java.awt.Color(153, 255, 153));
+            if (tables.get(5).getCurGuests() > 0) {
+                tables.get(5).removeGuest();
+            }
+            curSeatingAmt.setText(Integer.toString(tables.get(5).getCurGuests()));
+            if (tables.get(5).getCurGuests() > 0) {
+                table_6_button.setBackground(new java.awt.Color(255,153,153));
+                table_6_panel.setBackground(new java.awt.Color(255,153,153));
+            } else if (tables.get(5).getCurGuests() == 0) {
+                table_6_button.setBackground(new java.awt.Color(255,204,102));
+                table_6_panel.setBackground(new java.awt.Color(255,204,102));
+            }
+        } else if (table_7_button.isSelected()) {
+            table_7_button.setBackground(new java.awt.Color(153, 255, 153));
+            table_7_panel.setBackground(new java.awt.Color(153, 255, 153));
+            if (tables.get(6).getCurGuests() > 0) {
+                tables.get(6).removeGuest();
+            }
+            curSeatingAmt.setText(Integer.toString(tables.get(6).getCurGuests()));
+            if (tables.get(6).getCurGuests() > 0) {
+                table_7_button.setBackground(new java.awt.Color(255,153,153));
+                table_7_panel.setBackground(new java.awt.Color(255,153,153));
+            } else if (tables.get(6).getCurGuests() == 0) {
+                table_7_button.setBackground(new java.awt.Color(255,204,102));
+                table_7_panel.setBackground(new java.awt.Color(255,204,102));
+            }
+        } else if (table_8_button.isSelected()) {
+            table_8_button.setBackground(new java.awt.Color(153, 255, 153));
+            table_8_panel.setBackground(new java.awt.Color(153, 255, 153));
+            if (tables.get(7).getCurGuests() > 0) {
+                tables.get(7).removeGuest();
+            }
+            curSeatingAmt.setText(Integer.toString(tables.get(7).getCurGuests()));
+            if (tables.get(7).getCurGuests() > 0) {
+                table_8_button.setBackground(new java.awt.Color(255,153,153));
+                table_8_panel.setBackground(new java.awt.Color(255,153,153));
+            } else if (tables.get(7).getCurGuests() == 0) {
+                table_8_button.setBackground(new java.awt.Color(255,204,102));
+                table_8_panel.setBackground(new java.awt.Color(255,204,102));
+            }
+        }
+    }//GEN-LAST:event_remGuestButtonActionPerformed
+
+    private void addGuestButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addGuestButtonActionPerformed
+        // TODO add your handling code here:
+        
+        if (table_1_button.isSelected()) {
+            table_1_button.setBackground(new java.awt.Color(255,153,153));
+            table_1_panel.setBackground(new java.awt.Color(255,153,153));
+            tables.get(0).setAvailability(0);
+            if (tables.get(0).getCurGuests() < tables.get(0).getMaxGuests()) {
+                tables.get(0).addGuest();
+            }
+            curSeatingAmt.setText(Integer.toString(tables.get(0).getCurGuests()));
+            
+        } else if (table_2_button.isSelected()) {
+            table_2_button.setBackground(new java.awt.Color(255,153,153));
+            table_2_panel.setBackground(new java.awt.Color(255,153,153));
+            if (tables.get(1).getCurGuests() < tables.get(1).getMaxGuests()) {
+                tables.get(1).addGuest();
+            }
+            curSeatingAmt.setText(Integer.toString(tables.get(1).getCurGuests()));
+        } else if (table_3_button.isSelected()) {
+            table_3_button.setBackground(new java.awt.Color(255,153,153));
+            table_3_panel.setBackground(new java.awt.Color(255,153,153));
+            if (tables.get(2).getCurGuests() < tables.get(2).getMaxGuests()) {
+                tables.get(2).addGuest();
+            }
+            curSeatingAmt.setText(Integer.toString(tables.get(2).getCurGuests()));
+        } else if (table_4_button.isSelected()) {
+            table_4_button.setBackground(new java.awt.Color(255,153,153));
+            table_4_panel.setBackground(new java.awt.Color(255,153,153));
+            if (tables.get(3).getCurGuests() < tables.get(3).getMaxGuests()) {
+                tables.get(3).addGuest();
+            }
+            curSeatingAmt.setText(Integer.toString(tables.get(3).getCurGuests()));
+        } else if (table_5_button.isSelected()) {
+            table_5_button.setBackground(new java.awt.Color(255,153,153));
+            table_5_panel.setBackground(new java.awt.Color(255,153,153));
+            if (tables.get(4).getCurGuests() < tables.get(4).getMaxGuests()) {
+                tables.get(4).addGuest();
+            }
+            curSeatingAmt.setText(Integer.toString(tables.get(4).getCurGuests()));
+        } else if (table_6_button.isSelected()) {
+            table_6_button.setBackground(new java.awt.Color(255,153,153));
+            table_6_panel.setBackground(new java.awt.Color(255,153,153));
+            if (tables.get(5).getCurGuests() < tables.get(5).getMaxGuests()) {
+                tables.get(5).addGuest();
+            }
+            curSeatingAmt.setText(Integer.toString(tables.get(5).getCurGuests()));
+        } else if (table_7_button.isSelected()) {
+            table_7_button.setBackground(new java.awt.Color(255,153,153));
+            table_7_panel.setBackground(new java.awt.Color(255,153,153));
+            if (tables.get(6).getCurGuests() < tables.get(6).getMaxGuests()) {
+                tables.get(6).addGuest();
+            }
+            curSeatingAmt.setText(Integer.toString(tables.get(6).getCurGuests()));
+        } else if (table_8_button.isSelected()) {
+            table_8_button.setBackground(new java.awt.Color(255,153,153));
+            table_8_panel.setBackground(new java.awt.Color(255,153,153));
+            if (tables.get(7).getCurGuests() < tables.get(7).getMaxGuests()) {
+                tables.get(7).addGuest();
+            }
+            curSeatingAmt.setText(Integer.toString(tables.get(7).getCurGuests()));
+        }
+    }//GEN-LAST:event_addGuestButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -645,26 +1022,40 @@ public class RestaurantLayout extends JFrame {
                 new RestaurantLayout().setVisible(true);
             }
         });
+               
+        Table table;
+        for (int i = 0; i < 8; i++) {
+            table = new Table();
+            tables.add(table);
+        }
 
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addGuestButton;
+    private javax.swing.JLabel ctrlGuestLabel;
+    private javax.swing.JPanel ctrlPanel;
+    private javax.swing.JSeparator ctrlSep1;
+    private javax.swing.JLabel ctrlTableLabel;
+    private javax.swing.JLabel curSeatingAmt;
+    private javax.swing.JLabel curSeatingLabel;
     private javax.swing.JPanel detailPanel;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel maxSeatingAmt;
+    private javax.swing.JLabel maxSeatingLabel;
+    private javax.swing.JPanel orderPanel;
+    private javax.swing.JButton remGuestButton;
     private javax.swing.JButton setDirtyButton;
     private javax.swing.JButton setFreeButton;
     private javax.swing.JButton setUsedButton;
     private javax.swing.JPanel statusPanel;
+    private javax.swing.JLabel statusTableLabel;
     private javax.swing.JTabbedPane tableStatusTabPanel;
     private javax.swing.JToggleButton table_1_button;
     private javax.swing.JPanel table_1_panel;
     private javax.swing.JToggleButton table_2_button;
     private javax.swing.JPanel table_2_panel;
-    private javax.swing.JPanel table_2_panel2;
-    private javax.swing.JPanel table_2_panel3;
     private javax.swing.JToggleButton table_3_button;
-    private javax.swing.JToggleButton table_3_button1;
-    private javax.swing.JToggleButton table_3_button2;
     private javax.swing.JPanel table_3_panel;
     private javax.swing.JToggleButton table_4_button;
     private javax.swing.JPanel table_4_panel;
