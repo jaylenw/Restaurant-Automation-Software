@@ -74,7 +74,19 @@ public class RestrauntDatabase {
         catch(SQLException sql){System.out.println(sql.getMessage());}
        System.out.println(fname);
     }
-}
+    
+    public void deleteEmployee(String userName){
+        
+        try{
+       PreparedStatement prep = conn.prepareStatement("delete from employee where username = ?");
+       prep.setString(1, userName);
+       prep.executeUpdate();
+        }
+        catch(SQLException sql){System.out.println(sql.getMessage());}
+       //System.out.println(fname);
+    }
+ }
+
     
 
     
