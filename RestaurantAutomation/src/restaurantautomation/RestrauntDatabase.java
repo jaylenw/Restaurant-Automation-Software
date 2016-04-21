@@ -5,6 +5,7 @@
  */
 package restaurantautomation;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 /**
  *
@@ -75,11 +76,27 @@ public class RestrauntDatabase {
        System.out.println(fname);
     }
     
-    public void deleteEmployee(String userName){
+    public ArrayList<String> getEmployeeData(String username){
+        ArrayList<String> list = new ArrayList<String>();
+        try{
+       PreparedStatement prep = conn.prepareStatement("select * from employee where username = ?");
+       prep.setString(1, username);
+       ResultSet query = prep.executeQuery();
+       query.next();
+       for(int i = 1; i < 6; i++){
+           list.add(query.getString(i));
+         }
+       
+       }
+        catch(SQLException sql){System.out.println(sql.getMessage());}
+       return list; 
+    }
+    
+    public void deleteEmployee(String username){
         
         try{
        PreparedStatement prep = conn.prepareStatement("delete from employee where username = ?");
-       prep.setString(1, userName);
+       prep.setString(1, username);
        prep.executeUpdate();
         }
         catch(SQLException sql){System.out.println(sql.getMessage());}
