@@ -116,7 +116,7 @@ public class RestrauntDatabase {
     public void deleteItem(String itemName){
         
         try{
-       PreparedStatement prep = conn.prepareStatement("delete from employee where itemName = ?");
+       PreparedStatement prep = conn.prepareStatement("delete from menu where itemName = ?");
        prep.setString(1, itemName);
        prep.executeUpdate();
         }
