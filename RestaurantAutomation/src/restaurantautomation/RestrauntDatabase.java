@@ -73,7 +73,18 @@ public class RestrauntDatabase {
        prep.executeUpdate();
         }
         catch(SQLException sql){System.out.println(sql.getMessage());}
-       System.out.println(fname);
+       //System.out.println(fname);
+    }
+    
+    public void insertItem(String itemName, int price){
+        try{
+       PreparedStatement prep = conn.prepareStatement("insert into menu values(?,?)");
+       prep.setString(1, itemName);
+       prep.setString(2, price+"");
+       prep.executeUpdate();
+        }
+        catch(SQLException sql){System.out.println(sql.getMessage());}
+       //System.out.println(fname);
     }
     
     public ArrayList<String> getEmployeeData(String username){
@@ -97,6 +108,16 @@ public class RestrauntDatabase {
         try{
        PreparedStatement prep = conn.prepareStatement("delete from employee where username = ?");
        prep.setString(1, username);
+       prep.executeUpdate();
+        }
+        catch(SQLException sql){System.out.println(sql.getMessage());}
+       //System.out.println(fname);
+    }
+    public void deleteItem(String itemName){
+        
+        try{
+       PreparedStatement prep = conn.prepareStatement("delete from employee where itemName = ?");
+       prep.setString(1, itemName);
        prep.executeUpdate();
         }
         catch(SQLException sql){System.out.println(sql.getMessage());}
