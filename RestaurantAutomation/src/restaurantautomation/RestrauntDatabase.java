@@ -103,6 +103,11 @@ public class RestrauntDatabase {
        return list; 
     }
     
+    public void updateItemPrice(String itemName, int price){
+        deleteItem(itemName);
+        insertItem(itemName, price);
+    }
+    
     public void deleteEmployee(String username){
         
         try{
