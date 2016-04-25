@@ -1,4 +1,4 @@
 # add files or project environment settings that we don't need.
 *.class
 /spark-chat-test/spark-chat-test/target/
-spark-chat-test/jdk1.8.0_92/
+spark-chat-test/spark-chat-test/jdk1.8.0_92/
