@@ -1,1 +1,2 @@
 # add files or project environment settings that we don't need.
+*.class
