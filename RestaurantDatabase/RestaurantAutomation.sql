@@ -32,3 +32,16 @@ create table bill(
     CONSTRAINT fk_orders FOREIGN KEY  (orderID)
         REFERENCES orders (orderID)
 );
+
+#some test data
+#10 tables all clean
+insert into tables values ('c', 1);
+insert into tables values ('c', 2);
+insert into tables values ('c', 3);
+insert into tables values ('c', 4);
+insert into tables values ('c', 5);
+insert into tables values ('c', 6);
+insert into tables values ('c', 7);
+insert into tables values ('c', 8);
+insert into tables values ('c', 9);
+insert into tables values ('c', 10);
