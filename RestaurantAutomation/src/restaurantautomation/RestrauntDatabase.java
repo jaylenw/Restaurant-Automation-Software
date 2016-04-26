@@ -167,7 +167,7 @@ public class RestrauntDatabase {
                + "inner join menu on orders.itemName = menu.itemName)"
                + "where bill.tableNumber = ?");
        prep.setString(1, tableNum+"");
-       prep.executeQuery();
+       num = prep.executeQuery().getInt(1);
         }
         catch(SQLException sql){System.out.println(sql.getMessage());}
         return num;
