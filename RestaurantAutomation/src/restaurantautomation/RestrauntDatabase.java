@@ -61,6 +61,8 @@ public class RestrauntDatabase {
         }
     }
     
+    //////////EMPLOYEE METHODS
+    
     public void insertEmployee(String fname, String lname, String username, 
             String password, int priority){
         try{
@@ -70,17 +72,6 @@ public class RestrauntDatabase {
        prep.setString(3, username);
        prep.setString(4, password);
        prep.setString(5, priority+"");
-       prep.executeUpdate();
-        }
-        catch(SQLException sql){System.out.println(sql.getMessage());}
-       //System.out.println(fname);
-    }
-    
-    public void insertItem(String itemName, int price){
-        try{
-       PreparedStatement prep = conn.prepareStatement("insert into menu values(?,?)");
-       prep.setString(1, itemName);
-       prep.setString(2, price+"");
        prep.executeUpdate();
         }
         catch(SQLException sql){System.out.println(sql.getMessage());}
@@ -103,11 +94,6 @@ public class RestrauntDatabase {
        return list; 
     }
     
-    public void updateItemPrice(String itemName, int price){
-        deleteItem(itemName);
-        insertItem(itemName, price);
-    }
-    
     public void deleteEmployee(String username){
         
         try{
@@ -118,6 +104,19 @@ public class RestrauntDatabase {
         catch(SQLException sql){System.out.println(sql.getMessage());}
        //System.out.println(fname);
     }
+    
+////////////////////MENU
+    
+    public void insertItem(String itemName, int price){
+        try{
+       PreparedStatement prep = conn.prepareStatement("insert into menu values(?,?)");
+       prep.setString(1, itemName);
+       prep.setString(2, price+"");
+       prep.executeUpdate();
+        }
+        catch(SQLException sql){System.out.println(sql.getMessage());}
+    }
+        
     public void deleteItem(String itemName){
         
         try{
@@ -128,8 +127,53 @@ public class RestrauntDatabase {
         catch(SQLException sql){System.out.println(sql.getMessage());}
        //System.out.println(fname);
     }
- }
+    
+    public void updateItemPrice(String itemName, int price){
+        deleteItem(itemName);
+        insertItem(itemName, price);
+    }
+    
+    
+////////////////////TABLE
+    public void setStaus(int num,String status){
+        try{
+       PreparedStatement prep = 
+               conn.prepareStatement("update tables set tableStatus = ? where tables.tableNumber = ?");
+       prep.setString(1, status);
+       prep.setString(2, num+"");
+       prep.executeUpdate();
+        }
+        catch(SQLException sql){System.out.println(sql.getMessage());}
+    }
 
+//////////////////ORDERS
+    public void insertOrder(int orderID, int qty, String itemName){
+        try{
+       PreparedStatement prep = conn.prepareStatement("insert into orders values(?,?,?)");
+       prep.setString(3, itemName);
+       prep.setString(2, qty+"");
+       prep.setString(1, orderID+"");
+       prep.executeUpdate();
+        }
+        catch(SQLException sql){System.out.println(sql.getMessage());}
+    }
+
+////////////////BILL
+    public int total(int tableNum){ //working on it
+        int num = -1;
+        try{
+       PreparedStatement prep = conn.prepareStatement("select SUM(price) from "
+               + "((bill inner join orders on bill.orderID = orders.orderID) "
+               + "inner join menu on orders.itemName = menu.itemName)"
+               + "where bill.tableNumber = ?");
+       prep.setString(1, tableNum+"");
+       prep.executeQuery();
+        }
+        catch(SQLException sql){System.out.println(sql.getMessage());}
+        return num;
+    }
+
+}
     
 
     
