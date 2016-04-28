@@ -26,6 +26,7 @@ public class RestrauntDatabase {
             conn = DriverManager.getConnection(DB_URL);
         
             stmt = conn.createStatement();
+            build();
         }
         catch (SQLException se) {
             
@@ -50,6 +51,35 @@ public class RestrauntDatabase {
             } catch (SQLException se) {
                 se.printStackTrace();
             }
+    }
+    
+    public void build(){
+        try{
+       PreparedStatement prep = conn.prepareStatement("create table menu( "
+               + "itemName varChar (20), price INT, CONSTRAINT pk_itemName "
+               + "PRIMARY KEY (itemName))");
+        prep.executeUpdate();
+        prep = conn.prepareStatement("create table employees("
+               + "fname varChar (20), lname varChar (20), username varChar(20), "
+               + "password varChar(20), priority INT;)");
+        prep.executeUpdate();
+        prep = conn.prepareStatement("create table tables( tableStatus varChar(1), "
+               + "tableNumber INT, CONSTRAINT pk_tableNumber "
+               + "PRIMARY KEY (tableNumber))");
+        prep.executeUpdate();
+        prep = conn.prepareStatement("create table orders( orderID INT, qty INT, "
+                + "itemName varChar(20), CONSTRAINT pk_orderID "
+                + "PRIMARY KEY (orderID), CONSTRAINT fk_itemName "
+                + "FOREIGN KEY (itemName) REFERENCES menu	(itemName))");
+        prep.executeUpdate();
+        prep = conn.prepareStatement("alter table orders add tableNumber int");
+        prep.executeUpdate();
+        prep = conn.prepareStatement("alter table orders add constraint "
+                + "fk_tableNum FOREIGN KEY (tableNumber) "
+                + "references tables(tableNumber)");
+        prep.executeUpdate();
+        }
+        catch(SQLException sql){/*System.out.println(sql.getMessage());*/}
     }
     
     public static String dispNull(String input) {
