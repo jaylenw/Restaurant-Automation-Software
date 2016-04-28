@@ -158,9 +158,19 @@ public class RestrauntDatabase {
        }
        catch(SQLException sql){System.out.println(sql.getMessage());}
     }
+    
+    public void deleteOrder(int orderID){
+         try{
+       PreparedStatement prep = conn.prepareStatement("delete from orders"
+               + " where orderID = ?");
+       prep.setString(1, orderID+"");
+       prep.executeUpdate();
+       }
+       catch(SQLException sql){System.out.println(sql.getMessage());}
+    }
 
 ////////////////BILL
-    public int total(int tableNum){ //working on it
+    public int total(int tableNum){ 
         int num = -1;
         try{
        PreparedStatement prep = conn.prepareStatement("select SUM(price*qty) from "
@@ -169,7 +179,7 @@ public class RestrauntDatabase {
        ResultSet query = prep.executeQuery();
        query.next();
        num = query.getInt(1);
-       //num = prep.executeQuery().getInt(1);
+
         }
         catch(SQLException sql){System.out.println(sql.getMessage());}
         return num;

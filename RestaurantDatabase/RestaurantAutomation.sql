@@ -1,4 +1,13 @@
 --APACHE DERBY SQL FILE FOR RESTUARANT AUTOMATION SOFTWARE
+#works with employees
+create table employees(
+	fname varChar (20),
+	lname varChar (20),
+	username varChar(20),
+	password varChar(20),
+	priority INT
+)
+
 #works with customer stuff
 create table tables(
 	tableStatus varChar(1),
