@@ -175,6 +175,26 @@ public class RestrauntDatabase {
         }
         catch(SQLException sql){System.out.println(sql.getMessage());}
     }
+    
+    public void insertTable(String tableStatus, int tableNum){
+         try{
+       PreparedStatement prep = conn.prepareStatement("insert into tables values(?,?)");
+       prep.setString(1, tableStatus);
+       prep.setString(2, tableNum+"");
+       prep.executeUpdate();
+        }
+        catch(SQLException sql){System.out.println(sql.getMessage());}
+    }
+    
+    public void deleteTable(int tableNum){
+         try{
+       PreparedStatement prep = conn.prepareStatement("delete from tables where"
+               + " tableNumber = ?");
+       prep.setString(1, tableNum+"");
+       prep.executeUpdate();
+        }
+        catch(SQLException sql){System.out.println(sql.getMessage());}
+    }
 
 //////////////////ORDERS
     public void insertOrder(int orderID, int qty, String itemName, int tableNum){
