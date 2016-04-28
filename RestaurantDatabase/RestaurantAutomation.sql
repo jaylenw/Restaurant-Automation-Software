@@ -21,17 +21,27 @@ create table orders(
 	REFERENCES menu	(itemName)
 );
 
+#modify for
+alter table orders
+add tableNumber int
+
+alter table orders
+add constraint fk_tableNum FOREIGN KEY (tableNumber)
+references tables(tableNumber
+/* removed in database redesign
 create table bill(
 	total int,
-	billID int,
     tableNumber int,
     orderID int,
-	CONSTRAINT pk_billID PRIMARY KEY (billID),
+	CONSTRAINT pk_bill PRIMARY KEY (tableNumber, orderID),
 	CONSTRAINT fk_tablesorder FOREIGN KEY (tableNumber)
 		REFERENCES tables (tableNumber),
     CONSTRAINT fk_orders FOREIGN KEY  (orderID)
         REFERENCES orders (orderID)
-);
+);*/
+
+
+
 
 #some test data
 #10 tables all clean
