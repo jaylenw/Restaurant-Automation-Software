@@ -147,31 +147,35 @@ public class RestrauntDatabase {
     }
 
 //////////////////ORDERS
-    public void insertOrder(int orderID, int qty, String itemName){
+    public void insertOrder(int orderID, int qty, String itemName, int tableNum){
         try{
-       PreparedStatement prep = conn.prepareStatement("insert into orders values(?,?,?)");
+       PreparedStatement prep = conn.prepareStatement("insert into orders values(?,?,?, ?)");
        prep.setString(3, itemName);
        prep.setString(2, qty+"");
        prep.setString(1, orderID+"");
+       prep.setString(4, tableNum+"");
        prep.executeUpdate();
-        }
-        catch(SQLException sql){System.out.println(sql.getMessage());}
+       }
+       catch(SQLException sql){System.out.println(sql.getMessage());}
     }
 
 ////////////////BILL
     public int total(int tableNum){ //working on it
         int num = -1;
         try{
-       PreparedStatement prep = conn.prepareStatement("select SUM(price) from "
-               + "((bill inner join orders on bill.orderID = orders.orderID) "
-               + "inner join menu on orders.itemName = menu.itemName)"
-               + "where bill.tableNumber = ?");
+       PreparedStatement prep = conn.prepareStatement("select SUM(price*qty) from "
+               + "(orders natural join menu) where orders.tableNumber = ?");
        prep.setString(1, tableNum+"");
-       num = prep.executeQuery().getInt(1);
+       ResultSet query = prep.executeQuery();
+       query.next();
+       num = query.getInt(1);
+       //num = prep.executeQuery().getInt(1);
         }
         catch(SQLException sql){System.out.println(sql.getMessage());}
         return num;
     }
+    
+    
 
 }
     
