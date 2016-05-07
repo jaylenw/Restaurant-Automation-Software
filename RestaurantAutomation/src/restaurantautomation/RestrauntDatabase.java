@@ -59,7 +59,7 @@ public class RestrauntDatabase {
                + "itemName varChar (20), price INT, CONSTRAINT pk_itemName "
                + "PRIMARY KEY (itemName))");
         prep.executeUpdate();
-        prep = conn.prepareStatement("create table employees("
+        prep = conn.prepareStatement("create table employee("
                + "fname varChar (20), lname varChar (20), username varChar(20), "
                + "password varChar(20), priority INT;)");
         prep.executeUpdate();
