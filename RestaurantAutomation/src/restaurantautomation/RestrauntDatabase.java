@@ -54,41 +54,68 @@ public class RestrauntDatabase {
     }
     
     public void build(){
+        
+        menu();
+        employee();
+        tables();
+        orders();
+        alter1();
+        alter2();
+        
+        
+    }
+    private void orders(){
         PreparedStatement prep;
         try{
-       prep = conn.prepareStatement("create table menu( "
-               + "itemName varChar (20), price INT, CONSTRAINT pk_itemName "
-               + "PRIMARY KEY (itemName))");
+            prep = conn.prepareStatement("create table orders(orderID INT, "
+                    + "qty INT, itemName varChar(20), CONSTRAINT pk_orderID "
+                    + "PRIMARY KEY (orderID), CONSTRAINT fk_itemName FOREIGN KEY"
+                    + " (itemName) REFERENCES menu(itemName))");
+            prep.executeUpdate();
+        }
+        catch(SQLException sql){System.out.println(sql.getMessage());}
+    }
+    private void alter2(){
+        PreparedStatement prep;
+        try{
+        prep = conn.prepareStatement("alter table orders add constraint "
+                + "fk_tableNum FOREIGN KEY (tableNumber) "
+                + "references tables(tableNumber)");
         prep.executeUpdate();
         }
         catch(SQLException sql){/*System.out.println(sql.getMessage());*/}
+    }
+    private void alter1(){
+        PreparedStatement prep;
+        try{
+        prep = conn.prepareStatement("alter table orders add tableNumber int");
+        prep.executeUpdate();}
+        catch(SQLException sql){/*System.out.println(sql.getMessage());*/}
+    }
+    private void tables(){
+        PreparedStatement prep;
+        try{
+        prep = conn.prepareStatement("create table tables( tableStatus varChar(1), "
+               + "tableNumber INT, CONSTRAINT pk_tableNumber "
+               + "PRIMARY KEY (tableNumber))");
+        prep.executeUpdate();}
+        catch(SQLException sql){System.out.println(sql.getMessage());}
+    }
+    private void employee(){
+        PreparedStatement prep;
         try{
         prep = conn.prepareStatement("create table employee("
                + "fname varChar (20), lname varChar (20), username varChar(20), "
                + "password varChar(20), priority INT;)");
         prep.executeUpdate();}
         catch(SQLException sql){/*System.out.println(sql.getMessage());*/}
+    }
+    private void menu(){
+        PreparedStatement prep;
         try{
-        prep = conn.prepareStatement("create table tables( tableStatus varChar(1), "
-               + "tableNumber INT, CONSTRAINT pk_tableNumber "
-               + "PRIMARY KEY (tableNumber))");
-        prep.executeUpdate();}
-        catch(SQLException sql){/*System.out.println(sql.getMessage());*/}
-        try{
-        prep = conn.prepareStatement("create table orders( orderID INT, qty INT, "
-                + "itemName varChar(20), CONSTRAINT pk_orderID "
-                + "PRIMARY KEY (orderID), CONSTRAINT fk_itemName "
-                + "FOREIGN KEY (itemName) REFERENCES menu	(itemName))");
-        prep.executeUpdate();}
-        catch(SQLException sql){/*System.out.println(sql.getMessage());*/}
-        try{
-        prep = conn.prepareStatement("alter table orders add tableNumber int");
-        prep.executeUpdate();}
-        catch(SQLException sql){/*System.out.println(sql.getMessage());*/}
-        try{
-        prep = conn.prepareStatement("alter table orders add constraint "
-                + "fk_tableNum FOREIGN KEY (tableNumber) "
-                + "references tables(tableNumber)");
+       prep = conn.prepareStatement("create table menu( "
+               + "itemName varChar (20), price INT, CONSTRAINT pk_itemName "
+               + "PRIMARY KEY (itemName))");
         prep.executeUpdate();
         }
         catch(SQLException sql){/*System.out.println(sql.getMessage());*/}
