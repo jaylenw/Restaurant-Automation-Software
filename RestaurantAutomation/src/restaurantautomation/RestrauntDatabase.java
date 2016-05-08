@@ -132,6 +132,12 @@ public class RestrauntDatabase {
     
     //////////EMPLOYEE METHODS
     
+    public boolean isEmployee(String username){
+        if(getEmployeeData(username).size() != 0)
+            return true;
+        return false;
+    }
+    
     public void insertEmployee(String fname, String lname, String username, 
             String password, int priority){
         try{
