@@ -2,3 +2,5 @@
 *.class
 /spark-chat-test/spark-chat-test/target/
 spark-chat-test/spark-chat-test/jdk1.8.0_92/
+/javafx_webview_swing_test/nbproject/private/
+/javafx_webview_swing_test/build/
