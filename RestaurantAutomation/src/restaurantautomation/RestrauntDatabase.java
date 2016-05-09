@@ -169,6 +169,20 @@ public class RestrauntDatabase {
        return list; 
     }
     
+    public ArrayList<String> getAllUsernames(){
+        ArrayList<String> names = new ArrayList<String>();
+        try{
+       PreparedStatement prep = conn.prepareStatement("select username from employee");
+       ResultSet query = prep.executeQuery();
+       //query.next();
+       while(query.next()){
+           names.add(query.getString(1));
+       }
+        }
+        catch(SQLException sql){System.out.println(sql.getMessage());}
+        return names;
+    }
+    
     public void deleteEmployee(String username){
         
         try{
