@@ -24,7 +24,15 @@ input {
 }
 
 button {
-    float: right;
+    float: left;
+}
+
+#table_buttons button {
+    background-color: yellow;
+}
+
+#table_condition button {
+    background-color: pink;
 }
 
 li {
@@ -82,4 +90,16 @@ li {
     from { transform: none;        }
     50%  { transform: scale(1.05); }
     to   { transform: none;        }
+}
+
+h3 {
+    float: left;
+}
+
+#button_stuff {
+    background-color: pink; 
+}
+
+#button_stuff p, h3{
+    float: left;
 }

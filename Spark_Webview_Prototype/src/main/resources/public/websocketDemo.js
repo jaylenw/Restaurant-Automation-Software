@@ -7,6 +7,7 @@
 var webSocket = new WebSocket("ws://" + location.hostname + ":" + location.port + "/chat/");
 webSocket.onmessage = function (msg) { updateChat(msg); };
 webSocket.onclose = function () { alert("WebSocket connection closed"); };
+var table_num = 1; //default table number to be one
 
 //Send message if "Send" is clicked
 //id("send").addEventListener("click", function () {
