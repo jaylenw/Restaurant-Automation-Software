@@ -52,7 +52,8 @@ public class SwingFXWebView extends JPanel {
                  
                 frame.getContentPane().add(new SwingFXWebView());  
                  
-                frame.setMinimumSize(new Dimension(640, 480));  
+                frame.setMinimumSize(new Dimension(480, 480));
+                frame.setMaximumSize(new Dimension(480, 480));
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
                 frame.setVisible(true);  
             }  
@@ -67,23 +68,23 @@ public class SwingFXWebView extends JPanel {
         setLayout(new BorderLayout());  
         add(jfxPanel, BorderLayout.CENTER);  
          
-        swingButton = new JButton();  
-        swingButton.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Platform.runLater(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        webEngine.reload();
-                    }
-                });
-            }
-        });  
-        swingButton.setText("Reload");  
-         
-        add(swingButton, BorderLayout.SOUTH);  
+//        swingButton = new JButton();  
+//        swingButton.addActionListener(new ActionListener() {
+//
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                Platform.runLater(new Runnable() {
+//
+//                    @Override
+//                    public void run() {
+//                        webEngine.reload();
+//                    }
+//                });
+//            }
+//        });  
+//        swingButton.setText("Reload");  
+//         
+//        add(swingButton, BorderLayout.SOUTH);  
     }     
      
     /** 
