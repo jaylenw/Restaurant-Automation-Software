@@ -11,8 +11,10 @@ body {
     font-family: monospace;
     font-size: 14px;
     max-width: 480px;
-    margin: 0 auto;
-    padding: 20px
+    max-height: 480px;
+    margin: 0px;
+    
+    padding: 0px;
 }
 
 input {
@@ -43,6 +45,10 @@ li {
     padding: 5px 10px;
     width: 150px;
     top: 11px;
+}
+
+#chat {
+    padding-top: 50px;
 }
 
 #chat p {
