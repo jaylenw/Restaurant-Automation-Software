@@ -14,9 +14,55 @@ var table_num = 1; //default table number to be one
 //    sendMessage(id("message").value);
 //});
 
-//Send message if "dirty1" is clicked *
-id("dirty1").addEventListener("click", function () {
-    webSocket.send("Table 1 is Dirty");
+//Update table number variable
+
+id("table1").addEventListener("click", function () {
+    table_num = 1;
+});
+id("table2").addEventListener("click", function () {
+    table_num = 2;
+});
+
+id("table3").addEventListener("click", function () {
+    table_num = 3;
+});
+
+id("table4").addEventListener("click", function () {
+    table_num = 4;
+});
+
+id("table5").addEventListener("click", function () {
+    table_num = 5;
+});
+
+id("table6").addEventListener("click", function () {
+    table_num = 6;
+});
+
+id("table7").addEventListener("click", function () {
+    table_num = 7;
+});
+
+id("table8").addEventListener("click", function () {
+    table_num = 8;
+});
+
+
+//Send message if table condition is clicked is clicked *
+id("dirty").addEventListener("click", function () {
+    webSocket.send("Table " + table_num +  " is Dirty");
+});
+
+id("clean").addEventListener("click", function () {
+    webSocket.send("Table " + table_num +  " is Clean");
+});
+
+id("empty").addEventListener("click", function () {
+    webSocket.send("Table " + table_num +  " is Empty");
+});
+
+id("occupied").addEventListener("click", function () {
+    webSocket.send("Table " + table_num +  " is Occupied");
 });
 
 //Send message if enter is pressed in the input field
