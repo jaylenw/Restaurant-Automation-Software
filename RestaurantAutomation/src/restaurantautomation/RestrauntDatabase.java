@@ -222,6 +222,34 @@ public class RestrauntDatabase {
         insertItem(itemName, price);
     }
     
+    public int getPrice(String itemName){
+        int price = -1; 
+        try{
+        PreparedStatement prep = conn.prepareStatement("select price from menu where itemName = ?");
+       prep.setString(1, itemName);
+        ResultSet r = prep.executeQuery();
+        r.next();
+        price = Integer.parseInt(r.getString(1));
+        }
+        catch(SQLException sql){System.out.println(sql.getMessage());
+        }
+        return price;
+    }
+    
+    public ArrayList<String> getAllItems(){
+        ArrayList<String> names = new ArrayList<String>();
+        try{
+        PreparedStatement prep = conn.prepareStatement("select itemName from menu");
+        ResultSet r = prep.executeQuery();
+        while(r.next()){
+            names.add(r.getString(1));
+        }
+        }
+        catch(SQLException sql){System.out.println(sql.getMessage());
+        }
+        return names;
+    }
+    
     
 ////////////////////TABLE
     public void setStaus(int num,String status){
