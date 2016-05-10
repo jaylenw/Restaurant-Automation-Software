@@ -298,6 +298,20 @@ public class RestrauntDatabase {
         }
         catch(SQLException sql){System.out.println(sql.getMessage());}
     }
+    public ArrayList<String> getTableOrder(int tableNum){
+        ArrayList<String> nums = new ArrayList<String>();
+        try{
+        PreparedStatement prep = conn.prepareStatement("select orderID from orders where tableNumber = ?");
+        prep.setString(1, tableNum+"");
+        ResultSet r = prep.executeQuery();
+        while(r.next()){
+            nums.add(r.getString(1));
+        }
+        }
+        catch(SQLException sql){System.out.println(sql.getMessage());
+        }
+        return nums;
+    }
 
 //////////////////ORDERS
     public void insertOrder(int orderID, int qty, String itemName, int tableNum){
@@ -320,6 +334,23 @@ public class RestrauntDatabase {
        prep.executeUpdate();
        }
        catch(SQLException sql){System.out.println(sql.getMessage());}
+    }
+    
+    public ArrayList<String> getOrderData(int orderID)
+    {
+        ArrayList<String> list = new ArrayList<String>();
+        try{
+       PreparedStatement prep = conn.prepareStatement("select * from orders where orderID = ?");
+       prep.setString(1, orderID+"");
+       ResultSet query = prep.executeQuery();
+       query.next();
+       for(int i = 1; i < 5; i++){
+           list.add(query.getString(i));
+         }
+       
+       }
+        catch(SQLException sql){System.out.println(sql.getMessage());}
+       return list; 
     }
 
 ////////////////BILL
