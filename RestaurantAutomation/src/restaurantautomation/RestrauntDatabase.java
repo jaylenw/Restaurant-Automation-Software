@@ -250,6 +250,22 @@ public class RestrauntDatabase {
         return names;
     }
     
+    public ArrayList<String> getItemData(String itemName){
+        ArrayList<String> list = new ArrayList<String>();
+        try{
+       PreparedStatement prep = conn.prepareStatement("select * from menu where itemName = ?");
+       prep.setString(1, itemName);
+       ResultSet query = prep.executeQuery();
+       query.next();
+       for(int i = 1; i < 3; i++){
+           list.add(query.getString(i));
+         }
+       
+       }
+        catch(SQLException sql){System.out.println(sql.getMessage());}
+       return list; 
+    }
+    
     
 ////////////////////TABLE
     public void setStaus(int num,String status){
