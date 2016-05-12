@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 /**
  *
- * @author Michael
+ * @author Michael Botsko
  */
 public class RestrauntDatabase {
     static final String JDBC_DRIVER = "org.apache.derby.jdbc.ClientDriver";
@@ -17,7 +17,9 @@ public class RestrauntDatabase {
     
     static Statement stmt;
     static Connection conn;
-    
+    /**
+     * Begins database connection
+     */
     public RestrauntDatabase(){
         try {
             
@@ -36,7 +38,9 @@ public class RestrauntDatabase {
             e.printStackTrace();
         }
     }
-    
+    /**
+     * Closes database  on program end
+     */
     public void end(){
         try {
                 if (stmt != null) {
@@ -52,7 +56,9 @@ public class RestrauntDatabase {
                 se.printStackTrace();
             }
     }
-    
+        /**
+     * Establishes menu, employee, tables, and order tables
+     */
     public void build(){
         
         menu();
@@ -64,6 +70,9 @@ public class RestrauntDatabase {
         
         
     }
+    /**
+     * Create table orders which simulates a customer's order from a table
+     */
     private void orders(){
         PreparedStatement prep;
         try{
@@ -75,6 +84,9 @@ public class RestrauntDatabase {
         }
         catch(SQLException sql){System.out.println(sql.getMessage());}
     }
+        /**
+     * Alteration to orders
+    */
     private void alter2(){
         PreparedStatement prep;
         try{
@@ -85,6 +97,9 @@ public class RestrauntDatabase {
         }
         catch(SQLException sql){/*System.out.println(sql.getMessage());*/}
     }
+        /**
+     * alteration to orders
+     */
     private void alter1(){
         PreparedStatement prep;
         try{
@@ -92,6 +107,9 @@ public class RestrauntDatabase {
         prep.executeUpdate();}
         catch(SQLException sql){/*System.out.println(sql.getMessage());*/}
     }
+        /**
+     * Create table tables which simulates each table in a restraunt
+     */
     private void tables(){
         PreparedStatement prep;
         try{
@@ -101,6 +119,9 @@ public class RestrauntDatabase {
         prep.executeUpdate();}
         catch(SQLException sql){System.out.println(sql.getMessage());}
     }
+        /**
+     * Create table employee for all staff and login credentials
+     */
     private void employee(){
         PreparedStatement prep;
         try{
@@ -110,6 +131,9 @@ public class RestrauntDatabase {
         prep.executeUpdate();}
         catch(SQLException sql){/*System.out.println(sql.getMessage());*/}
     }
+    /**
+     * Create table menu with items and prices
+     */
     private void menu(){
         PreparedStatement prep;
         try{
@@ -131,13 +155,23 @@ public class RestrauntDatabase {
     }
     
     //////////EMPLOYEE METHODS
-    
+        /**
+     * @param username for employee
+     * @return true if username exists
+    */
     public boolean isEmployee(String username){
         if(getEmployeeData(username).size() != 0)
             return true;
         return false;
     }
-    
+       /**
+    * Inserts an employee into database
+    * @param fname first name
+    * @param lname last name
+    * @param username login credential
+    * @param password login verification
+    * @param priority role in store i.e. manager = 1, waiter = 2
+    */
     public void insertEmployee(String fname, String lname, String username, 
             String password, int priority){
         try{
@@ -152,7 +186,11 @@ public class RestrauntDatabase {
         catch(SQLException sql){System.out.println(sql.getMessage());}
        //System.out.println(fname);
     }
-    
+    /**
+     * Denotes all data for the given employee username
+     * @param username for employee
+     * @return ArrayList<String> of employee information
+     */
     public ArrayList<String> getEmployeeData(String username){
         ArrayList<String> list = new ArrayList<String>();
         try{
@@ -168,7 +206,10 @@ public class RestrauntDatabase {
         catch(SQLException sql){System.out.println(sql.getMessage());}
        return list; 
     }
-    
+        /**
+     * Returns all employee usernames
+     * @return ArrayList<String> of all employee usernames
+     */
     public ArrayList<String> getAllUsernames(){
         ArrayList<String> names = new ArrayList<String>();
         try{
@@ -182,7 +223,10 @@ public class RestrauntDatabase {
         catch(SQLException sql){System.out.println(sql.getMessage());}
         return names;
     }
-    
+        /**
+     * Deletes employee from database
+     * @param username to delete
+     */
     public void deleteEmployee(String username){
         
         try{
@@ -195,12 +239,17 @@ public class RestrauntDatabase {
     }
     
 ////////////////////MENU
+   
     public boolean isMenuItem(String item){
         if(getItemData(item).size() != 0)
             return true;
         return false;
     }
-    
+     /**
+     * Inserts new menu item
+     * @param itemName for item
+     * @param price for item
+     */  
     public void insertItem(String itemName, int price){
         try{
        PreparedStatement prep = conn.prepareStatement("insert into menu values(?,?)");
@@ -210,7 +259,10 @@ public class RestrauntDatabase {
         }
         catch(SQLException sql){System.out.println(sql.getMessage());}
     }
-        
+    /**
+     * Deletes item from database
+     * @param itemName to delete
+     */  
     public void deleteItem(String itemName){
         
         try{
@@ -221,12 +273,20 @@ public class RestrauntDatabase {
         catch(SQLException sql){System.out.println(sql.getMessage());}
        //System.out.println(fname);
     }
-    
+    /**
+     * Reflects a new item price
+     * @param itemName to update
+     * @param price new price
+     */
     public void updateItemPrice(String itemName, int price){
         deleteItem(itemName);
         insertItem(itemName, price);
     }
-    
+    /**
+     *
+     * @param itemName for price check
+     * @return item cost
+     */
     public int getPrice(String itemName){
         int price = -1; 
         try{
@@ -240,7 +300,10 @@ public class RestrauntDatabase {
         }
         return price;
     }
-    
+    /**
+     * Find all menu items
+     * @return ArrayList<String> all items on the menu
+     */
     public ArrayList<String> getAllItems(){
         ArrayList<String> names = new ArrayList<String>();
         try{
@@ -254,7 +317,11 @@ public class RestrauntDatabase {
         }
         return names;
     }
-    
+    /**
+     * 
+     * @param itemName to lookup
+     * @return ArrayList<String> of item data
+     */
     public ArrayList<String> getItemData(String itemName){
         ArrayList<String> list = new ArrayList<String>();
         try{
@@ -273,6 +340,11 @@ public class RestrauntDatabase {
     
     
 ////////////////////TABLE
+/**
+     * Updates the status of a table
+     * @param num for table
+     * @param status 'c' clean, 'd' dirty, 'u' used
+     */
     public void setStaus(int num,String status){
         try{
        PreparedStatement prep = 
@@ -283,7 +355,11 @@ public class RestrauntDatabase {
         }
         catch(SQLException sql){System.out.println(sql.getMessage());}
     }
-    
+    /**
+     * Add a new table
+     * @param tableStatus current status
+     * @param tableNum identification
+     */
     public void insertTable(String tableStatus, int tableNum){
          try{
        PreparedStatement prep = conn.prepareStatement("insert into tables values(?,?)");
@@ -293,7 +369,10 @@ public class RestrauntDatabase {
         }
         catch(SQLException sql){System.out.println(sql.getMessage());}
     }
-    
+    /**
+     * Remove table from database
+     * @param tableNum  to delete
+     */
     public void deleteTable(int tableNum){
          try{
        PreparedStatement prep = conn.prepareStatement("delete from tables where"
@@ -303,6 +382,11 @@ public class RestrauntDatabase {
         }
         catch(SQLException sql){System.out.println(sql.getMessage());}
     }
+    /**
+     * 
+     * @param tableNum to fetch orders
+     * @return all orders from table as ArrayList<String> of orderIDs
+     */
     public ArrayList<String> getTableOrder(int tableNum){
         ArrayList<String> nums = new ArrayList<String>();
         try{
@@ -319,6 +403,13 @@ public class RestrauntDatabase {
     }
 
 //////////////////ORDERS
+/**
+     * Add order, with information
+     * @param orderID unique orderID
+     * @param qty       amount ordered
+     * @param itemName what item
+     * @param tableNum which ordered it
+     */
     public void insertOrder(int orderID, int qty, String itemName, int tableNum){
         try{
        PreparedStatement prep = conn.prepareStatement("insert into orders values(?,?,?, ?)");
@@ -330,7 +421,10 @@ public class RestrauntDatabase {
        }
        catch(SQLException sql){System.out.println(sql.getMessage());}
     }
-    
+        /**
+     * Remove order from database
+     * @param orderID to delete
+     */
     public void deleteOrder(int orderID){
          try{
        PreparedStatement prep = conn.prepareStatement("delete from orders"
@@ -340,7 +434,11 @@ public class RestrauntDatabase {
        }
        catch(SQLException sql){System.out.println(sql.getMessage());}
     }
-    
+    /**
+     * 
+     * @param orderID identifier
+     * @return all data on order in ArrayList<String>
+     */
     public ArrayList<String> getOrderData(int orderID)
     {
         ArrayList<String> list = new ArrayList<String>();
@@ -359,6 +457,11 @@ public class RestrauntDatabase {
     }
 
 ////////////////BILL
+/**
+     * Bill for a table, sum of orders in other words
+     * @param tableNum for whom is ordering
+     * @return cost of orders
+     */
     public int total(int tableNum){ 
         int num = -1;
         try{
