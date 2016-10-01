@@ -15,7 +15,7 @@ The component of the software allows the manager and other employees to communic
 
 ## Demo-ing:
 
-The files included in the release page contains two netbeans projects. Both projects need to be imported into Netbeans and built for them to execute. These files are in a .zip package. Software requires at least Java 1.8 (need JRE and JDK installed).
+The files included in the release page contains two netbeans projects. Both projects need to be imported into Netbeans and built for them to execute. These files are in a .zip package. Software requires at least Java 1.8 (need JRE and JDK installed). You also need the latest Java FX SDK installed as well.
 
 The execution of the files depends on the importation of the project .zip packages in the release page. Once each project is imported, you must build with dependencies before running. Run the FinalSparkChat project first to initiate the local server for the chat session. Next, confirm that the project has included JavaDB to the list of libraries, if not, add it. Proceed to the Services tab on the left hand window, right clicking JavaDB and clicking “Start Server”. Right click JavaDB once more and select “create database”. When prompted, add a database of RestaurantEmployees with username of “access” and password of “granted”. Then navigate to the Restaurant Automation project and go to the source file called “login.java”. Right click on that file and the project will initiate prompting the user to login to view the table layout and other components.
 
