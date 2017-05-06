@@ -1,4 +1,4 @@
-#Installation
+# Installation
 
 Spark-chat folder contains netbeans project.
 
@@ -23,6 +23,6 @@ go to the project's root folder in the project pane of netbeans. Right click on 
 and then click on 'build with dependencies". Once everything is built you can now run
 the application. 
 
-#Usage
+# Usage
 
 1. Open up multiple tabs in a browser and visit 'localhost:4567'
